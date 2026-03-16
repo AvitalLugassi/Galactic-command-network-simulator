@@ -1,0 +1,463 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Orbitron', sans-serif;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+#server {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+#server img {
+  width: 30vw;
+  height: auto;
+}
+
+#clients-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.client {
+  position: absolute;
+  width: 10%;
+  height: auto;
+  background-color: none;
+  border: none;
+}
+
+.client img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.client:nth-child(1) {
+  bottom: 15%;
+  left: 70%;
+  height: auto;
+}
+
+.client:nth-child(2) {
+  width: 15%;
+  bottom: 0%;
+  left: 3%;
+}
+
+.client:nth-child(3) {
+
+  top: 8%;
+  left: 70%;
+}
+
+.client:nth-child(4) {
+  top: 4%;
+  left: 10%;
+}
+
+.client:nth-child(5) {
+  top: 6%;
+  left: 35%;
+}
+
+
+#serverStatus {
+  color: red;
+}
+
+.modal {
+  display: flex;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  direction: ltr;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.close {
+  float: left;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.message-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timestamp {
+  font-size: 0.8em;
+  color: #777;
+}
+
+.message-content {
+  margin-top: 5px;
+  direction: rtl;
+}
+
+input,
+select,
+label,
+button {
+  display: inline-block;
+  vertical-align: middle;
+  font-family: 'Orbitron', sans-serif;
+  padding: 5px;
+  margin: 2px;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  background-color: #00faff;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #00c0d1;
+}
+
+.hologram-close {
+  margin: 5px;
+}
+
+.laser-line {
+  position: absolute;
+  height: 4px;
+  background: linear-gradient(90deg, #0ff, #fff, #0ff);
+  background-size: 200% 100%;
+  animation: flowLaser 0.8s linear forwards, flicker 1.5s ease-in-out infinite;
+  box-shadow: 0 0 10px 3px rgba(0, 255, 255, 0.8);
+  z-index: 1;
+  transform-origin: 0 0;
+  border-radius: 3px;
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+@keyframes flowLaser {
+  from {
+    background-position: 200% 0;
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    background-position: 0 0;
+    opacity: 0;
+  }
+}
+
+@keyframes flicker {
+
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.5);
+  }
+}
+
+.message-modal {
+  position: absolute;
+  width: 200px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 5;
+  font-size: 0.6em;
+  box-shadow: 0 0 10px cyan;
+  backdrop-filter: blur(3px);
+}
+
+.message-modal textarea {
+  width: 90%;
+  height: 25px;
+  background: #111;
+  color: #0ff;
+  border: 1px solid #0ff;
+  border-radius: 8px;
+  margin-top: 10px;
+  padding: 8px;
+  resize: none;
+  overflow: hidden;
+}
+
+.message-modal button {
+  margin-top: 10px;
+  margin-right: 5px;
+  padding: 6px 12px;
+  background-color: #00cccc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.hologram-message {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(0.8);
+  background-color: rgba(0, 30, 60, 0.8);
+  border: 2px solid #0ff;
+  border-radius: 8px;
+  box-shadow: 0 0 20px #0ff, inset 0 0 10px rgba(0, 255, 255, 0.5);
+  color: #fff;
+  padding: 20px;
+  max-width: 80%;
+  z-index: 1000;
+  opacity: 0;
+  transition: all 0.5s ease-out;
+  text-align: right;
+  direction: ltr;
+}
+
+.hologram-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.hologram-content {
+  position: relative;
+}
+
+.hologram-sender {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #0ff;
+}
+
+.hologram-text {
+  margin-bottom: 15px;
+}
+
+.hologram-time {
+  font-size: 0.8em;
+  color: #7af;
+  text-align: left;
+  margin: 5px;
+}
+
+.hologram-close {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: none;
+  border: none;
+  color: #0ff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* עיצוב יומן ההודעות */
+.message-log {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  max-height: 0;
+  overflow: hidden;
+  background-color: rgba(0, 20, 40, 0.9);
+  border: 1px solid #0ff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  transition: max-height 0.3s ease-out;
+  z-index: 900;
+  direction: ltr;
+}
+
+.log-visible {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.log-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border: 0px solid #0ff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+  cursor: pointer;
+  z-index: 901;
+}
+
+.log-button img {
+  width: 100%;
+}
+
+.log-entry {
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.log-time {
+  font-size: 0.7em;
+  color: #0ff;
+  margin: 10px;
+}
+
+.log-sender {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #7af;
+}
+
+.log-text {
+  color: #fff;
+  margin-top: 5px;
+  font-size: 0.9em;
+}
+
+
+.button {
+  background: linear-gradient(135deg, rgba(0, 255, 213, 0.8), rgba(0, 190, 255, 0.8));
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-family: 'Rajdhani', 'Exo 2', 'Titillium Web', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(0, 255, 213, 0.4);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  min-width: 60px;
+  max-width: 120px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 4px;
+  opacity: 0.9;
+  direction: ltr;
+}
+
+.button.send {
+  background: linear-gradient(135deg, rgb(0, 255, 213), rgb(0, 190, 255));
+}
+
+
+.button.cancel {
+  background: linear-gradient(135deg, rgb(255, 100, 100), rgb(255, 50, 50));
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+  pointer-events: none;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(0, 255, 213, 0.6);
+  filter: brightness(1.1);
+  opacity: 1;
+}
+
+.button:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 5px rgba(0, 255, 213, 0.6);
+  filter: brightness(0.95);
+}
+
+@keyframes shimmer {
+  0% {
+    left: -150%;
+  }
+
+  100% {
+    left: 150%;
+  }
+}
+
+.button.glow {
+  animation: nasaGlow 2s infinite alternate;
+}
+
+@keyframes nasaGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 255, 213, 0.4);
+  }
+
+  100% {
+    box-shadow: 0 0 8px rgba(0, 255, 213, 0.7);
+  }
+}
+
+.button.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.button.icon:before {
+  font-family: 'FontAwesome';
+  font-size: 10px;
+  margin-right: 3px;
+}
+
+.button.minimal {
+  background: rgba(0, 190, 255, 0.3);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(0, 255, 213, 0.3);
+  box-shadow: none;
+  padding: 4px 8px;
+  font-size: 10px;
+}
