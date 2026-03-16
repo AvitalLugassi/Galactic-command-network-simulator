@@ -16,7 +16,7 @@ class Client {
   getPackageFromCable(newPackage) {
     this.setCurrentPackage(newPackage);
     this.messages.push(newPackage);
-    const audio = new Audio('../audio/קבלת הודעה.wav'); 
+    const audio = new Audio('audio/message.wav'); 
     audio.play();
     addMessageToLog(newPackage.content, newPackage.sender.name);
     if(this.div.querySelector('.dot-indicator'))

@@ -109,7 +109,6 @@ function sendMessageTo(sender, recipientName, message) {
   if (cable) {
     cable.sendPackageToServer(newPackage);
   }
-  console.log(`Message from ${sender.name} to ${recipientName}: ${message}`);
 }
 
 function getClientElement(client) {
@@ -169,7 +168,7 @@ function addMessageToLog(message, sender) {
     const logButton = document.createElement('button');
     logButton.id = 'log-button';
     logButton.className = 'log-button';
-    logButton.innerHTML = '<img src="../images/iconLog2.png" alt="הודעות" />';
+    logButton.innerHTML = '<img src="images/iconLog2.png" alt="הודעות" />';
     logButton.onclick = function() {
       messageLog.classList.toggle('log-visible');
     };
