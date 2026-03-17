@@ -15,7 +15,7 @@ let stars = Array.from({ length: 200 }, () => ({
   speed: Math.random() * 0.5 + 0.2,
 }));
 const backgroundImage = new Image();
-backgroundImage.src = "images/רקע.png";
+backgroundImage.src = "images/background.png";
 backgroundImage.onload = function () {
   requestAnimationFrame(animateStars);
 };

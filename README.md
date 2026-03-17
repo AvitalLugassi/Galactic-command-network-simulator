@@ -1,5 +1,9 @@
 # Galactic Command
 
+![Project Preview](images/Galactic.png)
+git add .
+[**Live Demo - Click Here to Run the Simulation**](https://avitallugassi.github.io/Galactic-command-network-simulator/)
+
 **Galactic Command** is an interactive space-themed simulation of a communication network built with **HTML, CSS and JavaScript (Object-Oriented Programming)**.
 
 The system simulates how messages travel between different space entities through a central command server (NASA).

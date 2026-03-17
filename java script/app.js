@@ -3,14 +3,15 @@ const server = new Server("NASA", divServer);
 
 function createClients() {
   const clientsContainer = document.getElementById("clients-container");
+  const NUM_CLIENTS = 5;
   const dataClients = [
-    ["teleskop", "images/לווין גזור.png", 1111],
-    ["seklayev", "images/מעבורת חלל.png", 2222],
-    ["astronaut", "images/אסטרונאוט.png", 3333],
-    ["apolo", "images/אפולו סויוז.png", 4444],
-    ["shabtai", "images/שבתאי__1_-removebg-preview.png", 5555],
+    ["teleskop", "images/Satellite.png", 1111],
+    ["seklayev", "images/spaceship.png", 2222],
+    ["astronaut", "images/astronaut.png", 3333],
+    ["apolo", "images/Apollo_Soyuz.png", 4444],
+    ["shabtai", "images/Saturn.png", 5555],
   ];
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < NUM_CLIENTS; i++) {
     const clientDiv = document.createElement("div");
     clientDiv.classList.add("client");
     const img = document.createElement("img");
