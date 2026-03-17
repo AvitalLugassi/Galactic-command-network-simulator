@@ -9,7 +9,7 @@ function createClients() {
     ["seklayev", "images/spaceship.png", 2222],
     ["astronaut", "images/astronaut.png", 3333],
     ["apolo", "images/Apollo_Soyuz.png", 4444],
-    ["shabtai", "images/Saturn.png", 5555],
+    ["shabtai", "images/Saturn_2.png", 5555],
   ];
   for (let i = 0; i < NUM_CLIENTS; i++) {
     const clientDiv = document.createElement("div");
