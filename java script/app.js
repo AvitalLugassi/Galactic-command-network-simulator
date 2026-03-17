@@ -7,7 +7,7 @@ function createClients() {
   const dataClients = [
     ["teleskop", "images/Satellite.png", 1111],
     ["seklayev", "images/spaceship.png", 2222],
-    ["astronaut", "images/astronaut_2.png", 3333],
+    ["astronaut", "images/astronaut_3.png", 3333],
     ["apolo", "images/Apollo_Soyuz_2.png", 4444],
     ["shabtai", "images/Saturn_2.png", 5555],
   ];
